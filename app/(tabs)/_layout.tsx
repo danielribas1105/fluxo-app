@@ -3,18 +3,18 @@ import React from "react"
 
 import { HapticTab } from "@/src/components/ui/haptic-tab"
 import { Colors } from "@/src/constants/theme"
-import { useColorScheme } from "@/src/hooks/use-color-scheme"
 import { ArrowLeftRight, Ellipsis, Goal, Home } from "lucide-react-native"
 
 export default function TabLayout() {
-   const colorScheme = useColorScheme()
-
    return (
       <Tabs
          screenOptions={{
-            tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+            tabBarActiveTintColor: Colors.theme.tabIconSelected,
             headerShown: false,
             tabBarButton: HapticTab,
+            tabBarStyle: {
+               backgroundColor: Colors.theme.background,
+            },
          }}
       >
          <Tabs.Screen
