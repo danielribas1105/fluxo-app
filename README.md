@@ -56,3 +56,74 @@ After run:
 ```bash
 npm install lucide-react-native react-native-svg
 ```
+
+## Project layout
+
+```
+fluxo-app/
+├── src/
+│   ├── app/                          # Expo Router — só rotas finas (re-export)
+│   │   ├── (tabs)/
+│   │   │   ├── _layout.tsx
+│   │   │   ├── goals.tsx             # re-export de features/goals
+│   │   │   ├── home.tsx              # re-export de features/home
+│   │   │   ├── more.tsx              # re-export de features/more
+│   │   │   └── transaction.tsx       # re-export de features/transactions
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   ├── login.tsx                 # re-export de features/auth
+│   │   └── onboarding.tsx            # re-export de features/onboarding
+│   │
+│   ├── components/
+│   │   ├── ui/                       # design system (Button, Card, Input...)
+│   │   └── common/                   # genéricos, sem lógica de domínio
+│   │
+│   ├── features/
+│   │   ├── auth/
+│   │   │   └── login-screen.tsx
+│   │   ├── goals/
+│   │   │   ├── goals-screen.tsx
+│   │   │   ├── components/
+│   │   │   └── hooks/                # ex: useGoals, useCreateGoal
+│   │   ├── home/
+│   │   │   ├── home-screen.tsx
+│   │   │   └── components/
+│   │   │       ├── header.tsx
+│   │   │       └── summary-card.tsx
+│   │   ├── more/
+│   │   │   └── more-screen.tsx
+│   │   ├── onboarding/
+│   │   │   └── onboarding-screen.tsx
+│   │   └── transactions/
+│   │       ├── transactions-screen.tsx
+│   │       ├── components/
+│   │       └── hooks/                # ex: useLancamentos
+│   │
+│   ├── entities/                     # domínio central, compartilhado entre features
+│   │   └── lancamento/
+│   │       ├── types.ts              # Lancamento, origemTipo, origemId
+│   │       ├── lancamento-service.ts # lancamentoService, upsertPorOrigem
+│   │       └── queries.ts            # hooks TanStack Query (useLancamentoQuery etc.)
+│   │
+│   ├── lib/
+│   │   ├── db/                       # setup do banco local (ex: SQLite/AsyncStorage adapters)
+│   │   ├── create-crud-service.ts    # factory genérica
+│   │   └── query-client.ts           # config do TanStack Query
+│   │
+│   ├── store/                        # átomos Jotai globais
+│   │
+│   ├── hooks/                        # hooks realmente globais (não ligados a feature)
+│   ├── constants/
+│   └── css/                          # ou mover para dentro de components/ui se for tema/tokens
+│
+├── assets/
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── app.json
+├── eslint.config.js
+├── expo-env.d.ts
+├── package.json
+├── README.md
+└── tsconfig.json
+```

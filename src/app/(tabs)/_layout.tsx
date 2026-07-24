@@ -1,9 +1,22 @@
 import { Tabs } from "expo-router"
 import React from "react"
 
-import { HapticTab } from "@/src/components/ui/haptic-tab"
-import { Colors } from "@/src/constants/theme"
-import { ArrowLeftRight, Ellipsis, Goal, Home } from "lucide-react-native"
+import { HapticTab } from "@/components/ui/haptic-tab"
+import { Colors } from "@/constants/theme"
+import { styles } from "@/features/home/css/add-button"
+import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs"
+import { ArrowLeftRight, Ellipsis, Goal, Home, Plus } from "lucide-react-native"
+import { Pressable, View } from "react-native"
+
+function AddTabButton({ ref, children, style, ...props }: BottomTabBarButtonProps) {
+   return (
+      <Pressable {...props} style={styles.addButtonWrapper}>
+         <View style={styles.addButton}>
+            <Plus size={30} color="#fff" />
+         </View>
+      </Pressable>
+   )
+}
 
 export default function TabLayout() {
    return (
@@ -18,7 +31,7 @@ export default function TabLayout() {
          }}
       >
          <Tabs.Screen
-            name="home"
+            name="home" // route indentify
             options={{
                title: "Resumo",
                tabBarIcon: ({ color }) => <Home size={28} color={color} />,
@@ -29,6 +42,14 @@ export default function TabLayout() {
             options={{
                title: "Transações",
                tabBarIcon: ({ color }) => <ArrowLeftRight size={28} color={color} />,
+            }}
+         />
+         <Tabs.Screen
+            name="add"
+            options={{
+               title: "",
+               tabBarButton: AddTabButton, // sobrescreve o HapticTab só aqui
+               tabBarIcon: () => null, // ícone já está dentro do AddTabButton
             }}
          />
          <Tabs.Screen
