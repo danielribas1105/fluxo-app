@@ -1,12 +1,12 @@
-import { layout } from "@/src/css/layout"
-import { text } from "@/src/css/text"
+import { layout } from "@/css/layout"
+import { typography } from "@/css/typography"
 import { ScrollView, Text, View } from "react-native"
 
-export default function MoreScreen() {
+export default function GoalsScreen() {
    return (
       <ScrollView style={layout.container} contentContainerStyle={layout.box}>
          <View style={layout.content}>
-            <Text style={text.title}>More actions</Text>
+            <Text style={typography.title}>Goals</Text>
          </View>
       </ScrollView>
    )
