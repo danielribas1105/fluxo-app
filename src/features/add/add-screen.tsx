@@ -2,7 +2,6 @@ import { Colors } from "@/constants/theme"
 import { cards } from "@/css/cards"
 import { layout } from "@/css/layout"
 import { typography } from "@/css/typography"
-import { addTransaction } from "@/lib/db/transactions"
 import { ArrowBigDown, ArrowBigUp, Calendar, Check, Tag } from "lucide-react-native"
 import { useState } from "react"
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native"
@@ -58,7 +57,7 @@ export default function AddScreen() {
       if (!validate()) return
 
       setSaving(true)
-      try {
+      /*  try {
          // NOTE: ajuste os nomes de campos/função conforme a assinatura real
          // de `addTransaction` em lib/db/transactions.ts
          await addTransaction({
@@ -75,7 +74,7 @@ export default function AddScreen() {
          setForm(INITIAL_STATE)
       } finally {
          setSaving(false)
-      }
+      } */
    }
 
    return (

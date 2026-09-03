@@ -2,9 +2,8 @@ import { Colors } from "@/constants/theme"
 import { cards } from "@/css/cards"
 import { layout } from "@/css/layout"
 import { typography } from "@/css/typography"
-import { getSummaryMonth } from "@/lib/db/transactions"
 import { ArrowBigDown, ArrowBigUp } from "lucide-react-native"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ScrollView, Text, View } from "react-native"
 import { BalanceChart } from "./components/balance-chart"
 import { CategoryPieChart } from "./components/category-pie-chart"
@@ -14,9 +13,9 @@ import SummaryCard from "./components/summary-card"
 export default function HomeScreen() {
    const [summary, setSummary] = useState({ entradas: 0, saidas: 0, saldo: 0 })
 
-   useEffect(() => {
+   /* useEffect(() => {
       getSummaryMonth("2026-07").then(setSummary)
-   }, [])
+   }, []) */
 
    return (
       <ScrollView style={layout.container} contentContainerStyle={layout.box}>

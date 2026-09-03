@@ -28,7 +28,11 @@ export const Colors = {
    theme: {
       title: "#F1F3F6",
       text: "#8894A7",
+      textMuted: "#5B6478",
       background: "#0D1321",
+      surface: "#161D2E", // fundo de cards, inputs, chips
+      surfaceAlt: "#1F2A40", // hover/pressed, chip selecionado (se não usar tint)
+      border: "#232B3D",
       tintGreen: "#4ADE80",
       tintRed: "#4ADE80",
       icon: "#9BA1A6",
