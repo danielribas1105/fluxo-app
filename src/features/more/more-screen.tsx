@@ -21,8 +21,8 @@ export default function MoreScreen() {
 
    return (
       <ScrollView style={layout.container} contentContainerStyle={layout.box}>
-         <View style={layout.content}>
-            <Text style={typography.title}>More actions</Text>
+         <View style={{ flexDirection: "column", gap: 10 }}>
+            <Text style={typography.title}>Cadastros</Text>
 
             <EntitySection
                title="Categorias"

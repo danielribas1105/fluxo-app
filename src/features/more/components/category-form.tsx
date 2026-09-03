@@ -1,3 +1,5 @@
+import { Colors } from "@/constants/theme"
+import { components } from "@/css/components"
 import { useCategories } from "@/hooks/use-manage-entities"
 import { useState } from "react"
 import { Pressable, Text, TextInput, View } from "react-native"
@@ -13,20 +15,23 @@ export function CategoryForm({ onDone }: { onDone: () => void }) {
       onDone()
    }
 
+   const disabled = isAdding || name.trim().length < 3
+
    return (
       <View className="gap-3">
          <TextInput
             placeholder="Nome da categoria"
+            placeholderTextColor={Colors.theme.textMuted}
             value={name}
             onChangeText={setName}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-base"
+            style={components.input}
          />
          <Pressable
             onPress={handleSubmit}
-            disabled={isAdding || name.trim().length < 3}
-            className="bg-black rounded-lg py-3 items-center disabled:opacity-40"
+            disabled={disabled}
+            style={[components.buttonPrimary, disabled && components.buttonPrimaryDisabled]}
          >
-            <Text className="text-white font-semibold">{isAdding ? "Salvando..." : "Salvar"}</Text>
+            <Text style={components.buttonPrimaryText}>{isAdding ? "Salvando..." : "Salvar"}</Text>
          </Pressable>
       </View>
    )

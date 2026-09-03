@@ -1,3 +1,5 @@
+import { Colors } from "@/constants/theme"
+import { components } from "@/css/components"
 import { useCategories, useRecurringAccounts } from "@/hooks/use-manage-entities"
 import { useState } from "react"
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native"
@@ -45,9 +47,11 @@ export function RecurringAccountForm({ onDone }: { onDone: () => void }) {
                <Pressable
                   key={c.id}
                   onPress={() => setCategoryId(c.id)}
-                  className={`px-3 py-1.5 rounded-full border ${categoryId === c.id ? "bg-black border-black" : "border-gray-300"}`}
+                  style={[components.chip, categoryId === c.id && components.chipSelected]}
                >
-                  <Text className={categoryId === c.id ? "text-white" : "text-black"}>
+                  <Text
+                     style={categoryId === c.id ? components.chipTextSelected : components.chipText}
+                  >
                      {c.name}
                   </Text>
                </Pressable>
@@ -59,9 +63,11 @@ export function RecurringAccountForm({ onDone }: { onDone: () => void }) {
                <Pressable
                   key={f}
                   onPress={() => setFrequency(f)}
-                  className={`px-3 py-1.5 rounded-full border ${frequency === f ? "bg-black border-black" : "border-gray-300"}`}
+                  style={[components.chip, frequency === f && components.chipSelected]}
                >
-                  <Text className={frequency === f ? "text-white" : "text-black"}>{f}</Text>
+                  <Text style={frequency === f ? components.chipTextSelected : components.chipText}>
+                     {f}
+                  </Text>
                </Pressable>
             ))}
          </View>
@@ -69,26 +75,27 @@ export function RecurringAccountForm({ onDone }: { onDone: () => void }) {
          <View className="flex-row gap-3">
             <TextInput
                placeholder="Valor estimado"
+               placeholderTextColor={Colors.theme.textMuted}
                value={estimatedValue}
                onChangeText={setEstimatedValue}
                keyboardType="decimal-pad"
-               className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-base"
+               style={[components.input, { flex: 1 }]}
             />
             <TextInput
                placeholder="Dia vencimento"
                value={dueDate}
                onChangeText={setDueDate}
                keyboardType="number-pad"
-               className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-base"
+               style={[components.input, { flex: 1 }]}
             />
          </View>
 
          <Pressable
             onPress={handleSubmit}
             disabled={isAdding}
-            className="bg-black rounded-lg py-3 items-center disabled:opacity-40"
+            style={[components.buttonPrimary, isAdding && components.buttonPrimaryDisabled]}
          >
-            <Text className="text-white font-semibold">{isAdding ? "Salvando..." : "Salvar"}</Text>
+            <Text style={components.buttonPrimaryText}>{isAdding ? "Salvando..." : "Salvar"}</Text>
          </Pressable>
       </ScrollView>
    )

@@ -1,19 +1,18 @@
 import { OnboardingProvider, useOnboarding } from "@/context/onboarding"
-import { initDatabase } from "@/lib/db/database"
+import { db } from "@/db"
 import { queryClient } from "@/lib/query-client"
 import { QueryClientProvider } from "@tanstack/react-query"
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator"
 import { Slot, useRouter, useSegments } from "expo-router"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { ActivityIndicator, Text, View } from "react-native"
+import migrations from "../../drizzle/migrations"
 
 function Navigation() {
    const { hasOnboarded, isReady } = useOnboarding()
-   const [dbReady, setDbReady] = useState(false)
+   const { success: dbReady, error: dbError } = useMigrations(db, migrations)
    const router = useRouter()
    const segments = useSegments()
-
-   useEffect(() => {
-      initDatabase().then(() => setDbReady(true))
-   }, [])
 
    useEffect(() => {
       if (!isReady || !dbReady) return
@@ -27,6 +26,23 @@ function Navigation() {
          router.replace("/(tabs)/home")
       }
    }, [isReady, dbReady, hasOnboarded, segments])
+
+   if (dbError) {
+      return (
+         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
+            <Text>Erro ao preparar o banco de dados:</Text>
+            <Text>{dbError.message}</Text>
+         </View>
+      )
+   }
+
+   if (!dbReady || !isReady) {
+      return (
+         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <ActivityIndicator />
+         </View>
+      )
+   }
 
    return <Slot />
 }

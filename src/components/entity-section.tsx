@@ -1,3 +1,6 @@
+import { Colors } from "@/constants/theme"
+import { components } from "@/css/components"
+import { layout } from "@/css/layout"
 import { typography } from "@/css/typography"
 import { useState } from "react"
 import { Pressable, Text, View } from "react-native"
@@ -21,27 +24,26 @@ export function EntitySection<T extends { id: string | number }>({
    const [modalVisible, setModalVisible] = useState(false)
 
    return (
-      <View className="gap-2 mb-6">
-         <View className="flex-row justify-between items-center">
+      <View style={components.card}>
+         <View style={{ ...layout.flex_row, gap: 6 }}>
             <Text style={typography.title}>{title}</Text>
-            <Pressable
-               onPress={() => setModalVisible(true)}
-               className="bg-black rounded-full w-8 h-8 items-center justify-center"
-            >
-               <Text className="text-white text-lg leading-none">+</Text>
+            <Pressable onPress={() => setModalVisible(true)} style={components.addButton}>
+               <Text style={components.addButtonText}>+</Text>
             </Pressable>
          </View>
 
          {isLoading ? (
-            <Text className="text-gray-400">Carregando...</Text>
+            <Text style={{ color: Colors.theme.textMuted }}>Carregando...</Text>
          ) : items && items.length > 0 ? (
             items.map((item) => (
-               <View key={item.id} className="bg-gray-100 rounded-lg px-3 py-2">
-                  <Text className="text-base">{renderItem(item)}</Text>
+               <View key={item.id} style={components.card}>
+                  <Text style={{ color: Colors.theme.title, fontSize: 16 }}>
+                     {renderItem(item)}
+                  </Text>
                </View>
             ))
          ) : (
-            <Text className="text-gray-400">Nenhum item cadastrado</Text>
+            <Text style={{ color: Colors.theme.textMuted }}>Nenhum item cadastrado</Text>
          )}
 
          <FormModal
